@@ -25,7 +25,7 @@ repositories {
 }
 
 java {
-    group = 'school.hei.hazavao'
+    group = 'fr.birdia.genai'
     sourceCompatibility = '21'
     targetCompatibility = '21'
 }

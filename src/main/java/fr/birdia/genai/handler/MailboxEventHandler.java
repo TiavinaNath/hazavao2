@@ -1,5 +1,6 @@
 package fr.birdia.genai.handler;
 
+import static fr.birdia.genai.concurrency.ThreadRenamer.renameWorkerThread;
 import static java.lang.System.getenv;
 import static java.lang.Thread.currentThread;
 
@@ -9,7 +10,6 @@ import com.amazonaws.services.lambda.runtime.events.SQSEvent;
 import com.amazonaws.services.lambda.runtime.events.SQSEvent.SQSMessage;
 import fr.birdia.genai.PojaApplication;
 import fr.birdia.genai.PojaGenerated;
-import fr.birdia.genai.concurrency.ThreadRenamer;
 import fr.birdia.genai.endpoint.EndpointConf;
 import fr.birdia.genai.endpoint.event.EventConf;
 import fr.birdia.genai.endpoint.event.consumer.EventConsumer;
@@ -33,7 +33,7 @@ public class MailboxEventHandler implements RequestHandler<SQSEvent, String> {
 
   @Override
   public String handleRequest(SQSEvent event, Context context) {
-    ThreadRenamer.renameWorkerThread(currentThread());
+    renameWorkerThread(currentThread());
     log.info("Received: event={}, awsReqId={}", event, context.getAwsRequestId());
     List<SQSMessage> messages = event.getRecords();
     consumableEventTyper
