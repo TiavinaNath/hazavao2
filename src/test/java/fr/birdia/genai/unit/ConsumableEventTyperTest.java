@@ -52,8 +52,7 @@ public class ConsumableEventTyperTest extends FacadeIT {
     var uuid = randomUUID().toString();
     var uuidCreated = UuidCreated.builder().uuid(uuid).build();
     var payload = om.readValue(om.writeValueAsString(uuidCreated), UuidCreated.class);
-    var typedEvent =
-        new TypedEvent("fr.birdia.genai.model.event.endpoint.hazavao.UuidCreated", payload);
+    var typedEvent = new TypedEvent("fr.birdia.genai.endpoint.event.model.UuidCreated", payload);
 
     var actualAcknowledgeableEvents = subject.apply(List.of(sqsMessageFrom(typedEvent)));
     var actualAcknowledgeableEvent = actualAcknowledgeableEvents.get(0);
@@ -70,7 +69,7 @@ public class ConsumableEventTyperTest extends FacadeIT {
     var payload = om.readValue(om.writeValueAsString(uuidCreated), UuidCreated.class);
     var unknownTypenameTypedEvent = new TypedEvent(UNKNOWN_TYPENAME, payload);
     var validTypedEvent =
-        new TypedEvent("fr.birdia.genai.model.event.endpoint.hazavao.UuidCreated", payload);
+        new TypedEvent("fr.birdia.genai.endpoint.event.model.UuidCreated", payload);
 
     var actualAcknowledgeableEvents =
         subject.apply(
